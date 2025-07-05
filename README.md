@@ -1,108 +1,98 @@
 # 📊 Gender Bias Analysis in Bollywood Plot Descriptions
 
-This project investigates **gender bias** in Bollywood movie plots, with a current focus on **female character portrayals**. It analyzes adjectives and verbs used to describe female characters, tags them based on a custom bias taxonomy, and visualizes patterns across time.
+This project investigates **gender bias** in Bollywood movie plots, currently focusing on **female character portrayals**. It analyzes adjectives and verbs, tags them with a bias taxonomy, and visualizes patterns across time.
 
 ---
 
 ## ✅ Brief Strategy
 
-1. **Data Parsing & Cleaning**: Read and clean preprocessed CSVs containing adjective and verb lists for female characters.
-2. **Frequency Analysis**: Count top-used words and identify recurring themes.
-3. **Bias Categorization**: Assign each word to a stereotype tag like `appearance`, `emotion`, `relationship`, or `agency`.
-4. **Visualization**: 
-   - Bar charts of top adjectives/verbs
-   - Line plots of bias trends across decades
-5. **Reporting**: Print concise summaries of usage patterns and tag distributions.
+1. **Data Parsing & Cleaning**: Load and prepare female adjective/verb CSVs.
+2. **Frequency Analysis**: Count and sort top-used descriptors.
+3. **Bias Tagging**: Classify words into tags like `appearance`, `emotion`, `relationship`, `agency`.
+4. **Visualization**: Bar charts and time trends of stereotype tags.
+5. **Summary Reporting**: Concise bias breakdowns with tag distributions.
 
-> ⚠️ **Note**: While the structure supports both genders, this version includes **in-depth analysis only for female characters**. Male character analysis is scoped for future development.
+> ⚠️ Male character analysis is planned as part of future work.
 
 ---
 
 ## 🧠 Bias Taxonomy
 
-Words are tagged using the following stereotype categories:
-
-| Category     | Description                                      |
-|--------------|--------------------------------------------------|
-| Appearance   | Focuses on looks: `beautiful`, `young`, `fair`   |
-| Emotion      | Expresses feelings: `angry`, `happy`, `shy`      |
-| Relationship | Defined by roles: `wife`, `daughter`, `widowed`  |
-| Agency       | Reflects action/decision: `brave`, `independent` |
-| Other        | Neutral or uncategorized                         |
+| Tag          | Examples                   |
+| ------------ | -------------------------- |
+| Appearance   | beautiful, young, fair     |
+| Emotion      | angry, shy, loving         |
+| Relationship | wife, daughter, widowed    |
+| Agency       | brave, independent, strong |
+| Other        | Neutral/uncategorized      |
 
 ---
 
 ## 🧪 Sample Output
 
-**Top Adjectives (Female):**
+**Top Adjectives:**
 
-| Word        | Frequency | Tag         |
-|-------------|-----------|-------------|
-| young       | 240       | Appearance  |
-| beautiful   | 120       | Appearance  |
-| sister      | 95        | Relationship|
-| widowed     | 75        | Relationship|
+| Word      | Count | Tag          |
+| --------- | ----- | ------------ |
+| young     | 240   | Appearance   |
+| beautiful | 120   | Appearance   |
+| sister    | 95    | Relationship |
 
-**Bias Distribution (Female):**
+**Bias Distribution:**
 
-| Tag         | Count     | % Usage     |
-|-------------|-----------|-------------|
-| Appearance  | 310       | 21.3%       |
-| Relationship| 205       | 14.1%       |
-| Emotion     | 110       | 7.6%        |
-| Agency      | 80        | 5.5%        |
+| Tag          | Count | % Usage |
+| ------------ | ----- | ------- |
+| Appearance   | 310   | 21.3%   |
+| Relationship | 205   | 14.1%   |
 
-_Visualizations_:  
-- `gender_adjectives_bargraph.png` – Bar chart comparing adjective frequency  
-- Trend line of appearance-tagged words over decades
+*Visuals*:
+
+* `gender_adjectives_bargraph.png`
+* Time trend plots of appearance/emotion tags
 
 ---
 
 ## 🛠️ Tools Used
 
-- **Python 3**
-- **Pandas**, **Matplotlib**, **Seaborn**
-- `ast.literal_eval` for parsing lists
-- Manual taxonomy tagging via `stereotypes.py`
+* Python, Pandas, Matplotlib, Seaborn
+* `ast.literal_eval`, custom tagging logic (`stereotypes.py`)
 
 ---
 
-## 📌 How to Run
+## ▶️ How to Run
 
-1. **Clone the repo**:
-   ```bash
-   git clone https://github.com/NAMITHA-L/Gender-Bias-Analysis.git
-   cd Gender-Bias-Analysis
-   
-Install dependencies:
+```bash
+git clone https://github.com/NAMITHA-L/Gender-Bias-Analysis.git
+cd Gender-Bias-Analysis
 pip install -r requirements.txt
+```
 
-Run each step sequentially:
+Then run scripts in order:
 
+```bash
 python 01_load_and_inspect.py
-
 python 02_clean_data.py
-
 python 03_count_word_frequencies.py
-
 python 04_tag_stereotypes.py
-
 python 05_compare_gender_words.py
-
 python 06_trend_over_time.py
-
 python 07_summary_report.py
+```
 
-🧩 Future Scope:
+---
 
-🔍 Male Bias Analysis: Extend all analysis pipelines to male data files (male_adjectives.csv, male_verb.csv) and compare gender portrayals.
+## 🧹 Future Scope
 
-📊 Normalized Metrics: Account for total word count and gender representation size.
+* **🔄 GPT Rewrite**: Bias-free sentence rewriting using OpenAI models (`08_rewrite_bias.py`)
+* **📝 Report Export**: Convert summaries to HTML/PDF (`09_export_report.py`)
+* **🧽 Character-Level Tags**: Map adjectives/verbs to individual characters (`character_bias.py`)
+* **☁️ Word Clouds**: Visualize stereotype tags as word clouds (`tag_cloud.png`)
+* **📊 Male Analysis**: Extend full pipeline to male character datasets
+* **📀 Normalized Metrics**: Adjust for plot length and gender ratio
+* **📈 Dashboards**: Build with Streamlit or Gradio
+* **🧪 Advanced NLP**: Add POS tagging, lemmatization, NER
+* **🖼️ Poster Bias (Stretch)**: Image-based gender representation analysis
 
-📈 Dashboards: Build interactive dashboards using Jupyter or Streamlit.
+---
 
-🧹 Advanced Cleaning: Incorporate lemmatization and POS tagging for improved tagging accuracy.
-
-
-
-This project is currently focused on female character analysis but lays the foundation for broader gender bias studies across both genders in Bollywood narratives.
+This project forms a foundation for **scalable gender bias studies** in Indian cinema — textual and beyond.
