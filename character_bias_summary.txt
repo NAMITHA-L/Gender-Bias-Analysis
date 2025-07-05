@@ -1,2 +1,18 @@
 📊 Character-Level Bias Summary (Dynamic):
 
+Character: Rohit
+Bias: High in Agency
+Tagged Adjectives: ['brave', 'strong', 'smart', 'bold']
+
+Character: Sonia
+Bias: High in Appearance
+Tagged Adjectives: ['beautiful', 'young', 'slim']
+
+Character: Amit
+Bias: High in Emotion
+Tagged Adjectives: ['kind']
+
+Character: Priya
+Bias: High in Emotion
+Tagged Adjectives: ['caring', 'emotional', 'loyal']
+
