@@ -1,0 +1,42 @@
+
+ SUMMARY REPORT
+--------------------------------------------------
+Top 10 Female Adjectives:
+  - young: 154
+  - beautiful: 89
+  - rich: 34
+  - sister: 29
+  - little: 28
+  - widowed: 27
+  - real: 23
+  - poor: 22
+  - wealthy: 22
+  - old: 22
+
+Top 10 Male Adjectives:
+  - young: 227
+  - old: 73
+  - rich: 60
+  - wealthy: 55
+  - real: 46
+  - local: 36
+  - honest: 33
+  - new: 26
+  - poor: 25
+  - twin: 24
+
+ Stereotype Tag Distribution (Female):
+  - Appearance: 266
+  - Agency: 4
+  - Emotion: 5
+  - Relationship: 29
+
+ Stereotype Tag Distribution (Male):
+  - Appearance: 236
+  - Agency: 13
+  - Emotion: 13
+  - Relationship: 2
+
+ Appearance-related bias in female descriptors: 21.5%
+
+See: gender_adjectives_bargraph.png

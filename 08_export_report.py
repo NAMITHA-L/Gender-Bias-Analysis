@@ -1,10 +1,12 @@
 import pandas as pd
-import re
-from collections import Counter
 import matplotlib.pyplot as plt
 import numpy as np
+from collections import Counter
+from xhtml2pdf import pisa
+import markdown
+import re
 
-# --- Define stereotype tags
+# --- Define stereotype categories
 stereotype_tags = {
     "Appearance": ["beautiful", "young", "pretty", "cute", "sexy", "hot", "attractive", "gorgeous", "slim", "fair"],
     "Agency": ["brave", "independent", "strong", "smart", "bold", "determined", "rebellious"],
@@ -12,7 +14,7 @@ stereotype_tags = {
     "Relationship": ["wife", "mother", "daughter", "girlfriend", "sister", "lover"],
 }
 
-# --- Clean & flatten function
+# --- Helper: Clean and flatten column
 def clean_and_flatten(df, column):
     all_words = []
     for entry in df[column].dropna():
@@ -23,7 +25,7 @@ def clean_and_flatten(df, column):
         all_words.extend(cleaned)
     return all_words
 
-# --- Classify adjectives into stereotype tags
+# --- Tag classifier
 def classify_words(words, tag_dict):
     tag_counts = {k: 0 for k in tag_dict}
     for word in words:
@@ -32,62 +34,53 @@ def classify_words(words, tag_dict):
                 tag_counts[tag] += 1
     return tag_counts
 
-# --- Load adjective CSVs
+# --- Load CSVs
 female_df = pd.read_csv("data/female_adjectives.csv")
 male_df = pd.read_csv("data/male_adjectives.csv")
 
-# --- Clean and flatten
 female_words = clean_and_flatten(female_df, "adjectives")
 male_words = clean_and_flatten(male_df, "adjectives")
 
-# --- Count most common
+# --- Top words
 top_female = Counter(female_words).most_common(10)
 top_male = Counter(male_words).most_common(10)
 
-# --- Tag distribution
+# --- Tagging
 female_tags = classify_words(female_words, stereotype_tags)
 male_tags = classify_words(male_words, stereotype_tags)
 
-# --- Bias ratio
+# --- Bias Ratio
 appearance_bias_ratio = 100 * female_tags["Appearance"] / max(1, len(female_words))
 
-# --- Save report to text
-with open("gender_bias_report.txt", "w", encoding="utf-8") as f:
-    f.write("\n SUMMARY REPORT\n")
-    f.write("--------------------------------------------------\n")
-    f.write("Top 10 Female Adjectives:\n")
-    for word, count in top_female:
-        f.write(f"  - {word}: {count}\n")
+# --- Create summary text
+summary_txt = "# Gender Bias Analysis Report\n\n"
 
-    f.write("\nTop 10 Male Adjectives:\n")
-    for word, count in top_male:
-        f.write(f"  - {word}: {count}\n")
+summary_txt += "## Top 10 Female Adjectives\n"
+for word, count in top_female:
+    summary_txt += f"- {word}: {count}\n"
 
-    f.write("\n Stereotype Tag Distribution (Female):\n")
-    for k, v in female_tags.items():
-        f.write(f"  - {k}: {v}\n")
+summary_txt += "\n## Top 10 Male Adjectives\n"
+for word, count in top_male:
+    summary_txt += f"- {word}: {count}\n"
 
-    f.write("\n Stereotype Tag Distribution (Male):\n")
-    for k, v in male_tags.items():
-        f.write(f"  - {k}: {v}\n")
+summary_txt += "\n## Stereotype Tag Distribution (Female)\n"
+for k, v in female_tags.items():
+    summary_txt += f"- {k}: {v}\n"
 
-    f.write(f"\n Appearance-related bias in female descriptors: {appearance_bias_ratio:.1f}%\n")
-    f.write("\nSee: gender_adjectives_bargraph.png\n")
+summary_txt += "\n## Stereotype Tag Distribution (Male)\n"
+for k, v in male_tags.items():
+    summary_txt += f"- {k}: {v}\n"
 
-print("✅ Text report saved as gender_bias_report.txt")
+summary_txt += f"\n## Appearance-related bias in female descriptors\n- {appearance_bias_ratio:.1f}%\n"
 
-# --- Bar graph: comparison of top adjectives
-top_female_dict = dict(top_female)
-top_male_dict = dict(top_male)
-
-all_keywords = sorted(set(top_female_dict) | set(top_male_dict))
+# --- Generate bar chart
+all_keywords = sorted(set(dict(top_female).keys()).union(dict(top_male).keys()))
 x = np.arange(len(all_keywords))
-
-female_counts = [top_female_dict.get(word, 0) for word in all_keywords]
-male_counts = [top_male_dict.get(word, 0) for word in all_keywords]
-
-# --- Plot
 width = 0.35
+
+female_counts = [dict(top_female).get(word, 0) for word in all_keywords]
+male_counts = [dict(top_male).get(word, 0) for word in all_keywords]
+
 plt.figure(figsize=(12, 6))
 plt.bar(x - width/2, female_counts, width, label='Female', color='orange')
 plt.bar(x + width/2, male_counts, width, label='Male', color='blue')
@@ -97,9 +90,25 @@ plt.ylabel('Frequency')
 plt.title('Top Adjectives by Gender')
 plt.legend()
 plt.tight_layout()
-
-# --- Save chart
 plt.savefig("gender_adjectives_bargraph.png", dpi=300)
 plt.close()
 
-print("✅ Bar graph saved as gender_adjectives_bargraph.png")
+# --- Append image to markdown
+summary_md = summary_txt + "\n\n![Graph](gender_adjectives_bargraph.png)"
+
+# --- Convert to HTML
+html = markdown.markdown(summary_md)
+
+# --- Wrap for xhtml2pdf
+html_wrapped = f"""
+<html>
+<head><meta charset="UTF-8"></head>
+<body>{html}</body>
+</html>
+"""
+
+# --- Create PDF
+with open("gender_bias_report.pdf", "wb") as pdf_file:
+    pisa.CreatePDF(html_wrapped, dest=pdf_file)
+
+print("✅ PDF report created dynamically from analysis results.")
