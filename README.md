@@ -80,11 +80,17 @@ pip install -r requirements.txt
 Run each step sequentially:
 
 python 01_load_and_inspect.py
+
 python 02_clean_data.py
+
 python 03_count_word_frequencies.py
+
 python 04_tag_stereotypes.py
+
 python 05_compare_gender_words.py
+
 python 06_trend_over_time.py
+
 python 07_summary_report.py
 
 🧩 Future Scope:
