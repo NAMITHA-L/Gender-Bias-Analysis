@@ -30,10 +30,10 @@ adj_counter = Counter(adjectives)
 verb_counter = Counter(verbs)
 
 # Print
-print("\n🔤 Top 10 Adjectives for Female Characters:")
+print("\n Top 10 Adjectives for Female Characters:")
 for word, count in adj_counter.most_common(10):
     print(f"{word}: {count}")
 
-print("\n🔤 Top 10 Verbs for Female Characters:")
+print("\n Top 10 Verbs for Female Characters:")
 for word, count in verb_counter.most_common(10):
     print(f"{word}: {count}")

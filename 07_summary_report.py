@@ -57,7 +57,7 @@ male_tags = classify_words(male_words, stereotype_tags)
 appearance_bias_ratio = 100 * female_tags["Appearance"] / max(1, len(female_words))
 
 # --- 🖨️ Print Summary
-print("\n📊 SUMMARY REPORT")
+print("\n SUMMARY REPORT")
 print("--------------------------------------------------")
 print("Top 10 Female Adjectives:")
 for word, count in top_female:
@@ -67,15 +67,15 @@ print("\nTop 10 Male Adjectives:")
 for word, count in top_male:
     print(f"  - {word}: {count}")
 
-print("\n🧠 Stereotype Tag Distribution (Female):")
+print("\n Stereotype Tag Distribution (Female):")
 for k, v in female_tags.items():
     print(f"  - {k}: {v}")
 
-print("\n🧠 Stereotype Tag Distribution (Male):")
+print("\n Stereotype Tag Distribution (Male):")
 for k, v in male_tags.items():
     print(f"  - {k}: {v}")
 
-print(f"\n💡 Appearance-related bias in female descriptors: {appearance_bias_ratio:.1f}%")
+print(f"\n Appearance-related bias in female descriptors: {appearance_bias_ratio:.1f}%")
 import matplotlib.pyplot as plt
 import numpy as np
 

@@ -49,10 +49,10 @@ adj_bias = tag_bias(adjectives)
 verb_bias = tag_bias(verbs)
 
 # Print results
-print("\n🧠 Adjective Bias Categories:")
+print("\n Adjective Bias Categories:")
 for cat, count in adj_bias.items():
     print(f"{cat.capitalize()}: {count}")
 
-print("\n🧠 Verb Bias Categories:")
+print("\n Verb Bias Categories:")
 for cat, count in verb_bias.items():
     print(f"{cat.capitalize()}: {count}")
